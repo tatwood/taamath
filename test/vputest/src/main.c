@@ -244,47 +244,6 @@ void test_vec4_dot()
 }
 
 //****************************************************************************
-void test_vec4_shuf_aw_bx_cw_dx()
-{
-    taa_vec4 a;
-    taa_vec4 b;
-    taa_vec4 c;
-    taa_vec4 d;
-    taa_vec4 e;
-    taa_vec4 f;
-    taa_vec4* pa = &a;
-    taa_vec4* pb = &b;
-    taa_vec4* pc = &c;
-    taa_vec4* pd = &d;
-    taa_vec4* pe = &e;
-    taa_vec4* pf = &f;
-    taa_fpu_vec4* fa = (taa_fpu_vec4*) pa;
-    taa_fpu_vec4* fb = (taa_fpu_vec4*) pb;
-    taa_fpu_vec4* fc = (taa_fpu_vec4*) pc;
-    taa_fpu_vec4* fd = (taa_fpu_vec4*) pd;
-    taa_fpu_vec4* fe = (taa_fpu_vec4*) pe;
-    taa_vpu_vec4* va = (taa_vpu_vec4*) pa;
-    taa_vpu_vec4* vb = (taa_vpu_vec4*) pb;
-    taa_vpu_vec4* vc = (taa_vpu_vec4*) pc;
-    taa_vpu_vec4* vd = (taa_vpu_vec4*) pd;
-    taa_vpu_vec4* vf = (taa_vpu_vec4*) pf;
-    rand_vec4(pa);
-    rand_vec4(pb);
-    rand_vec4(pc);
-    rand_vec4(pd);
-    // fpu macros
-    taa_fpu_shuf_aw_bx_cw_dx(*fa, *fb, *fc, *fd, *fe);
-    // vpu macros
-    taa_vpu_shuf_aw_bx_cw_dx(*va, *vb, *vc, *vd, *vf);
-    assert(!cmp_vec4(pe, pf, TEST_EPSILON));
-    assert(!cmp_float(pf->x, pa->w, TEST_EPSILON));
-    assert(!cmp_float(pf->y, pb->x, TEST_EPSILON));
-    assert(!cmp_float(pf->z, pc->w, TEST_EPSILON));
-    assert(!cmp_float(pf->w, pd->x, TEST_EPSILON));
-}
-
-
-//****************************************************************************
 void test_vec4_multiply()
 {
     taa_vec4 a;
@@ -338,6 +297,76 @@ void test_vec4_normalize()
 }
 
 //****************************************************************************
+void test_shuf_ax_ay_az_bx()
+{
+    taa_vec4 a;
+    taa_vec4 b;
+    taa_vec4 c;
+    taa_vec4 d;
+    taa_vec4* pa = &a;
+    taa_vec4* pb = &b;
+    taa_vec4* pc = &c;
+    taa_vec4* pd = &d;
+    taa_fpu_vec4* fa = (taa_fpu_vec4*) pa;
+    taa_fpu_vec4* fb = (taa_fpu_vec4*) pb;
+    taa_fpu_vec4* fc = (taa_fpu_vec4*) pc;
+    taa_vpu_vec4* va = (taa_vpu_vec4*) pa;
+    taa_vpu_vec4* vb = (taa_vpu_vec4*) pb;
+    taa_vpu_vec4* vd = (taa_vpu_vec4*) pd;
+    rand_vec4(pa);
+    rand_vec4(pb);
+    // fpu macros
+    taa_fpu_shuf_ax_ay_az_bx(*fa, *fb, *fc);
+    // vpu macros
+    taa_vpu_shuf_ax_ay_az_bx(*va, *vb, *vd);
+    assert(!cmp_vec4(pc, pd, TEST_EPSILON));
+    assert(!cmp_float(pd->x, pa->x, TEST_EPSILON));
+    assert(!cmp_float(pd->y, pa->y, TEST_EPSILON));
+    assert(!cmp_float(pd->z, pa->z, TEST_EPSILON));
+    assert(!cmp_float(pd->w, pb->x, TEST_EPSILON));
+}
+
+//****************************************************************************
+void test_shuf_aw_bx_cw_dx()
+{
+    taa_vec4 a;
+    taa_vec4 b;
+    taa_vec4 c;
+    taa_vec4 d;
+    taa_vec4 e;
+    taa_vec4 f;
+    taa_vec4* pa = &a;
+    taa_vec4* pb = &b;
+    taa_vec4* pc = &c;
+    taa_vec4* pd = &d;
+    taa_vec4* pe = &e;
+    taa_vec4* pf = &f;
+    taa_fpu_vec4* fa = (taa_fpu_vec4*) pa;
+    taa_fpu_vec4* fb = (taa_fpu_vec4*) pb;
+    taa_fpu_vec4* fc = (taa_fpu_vec4*) pc;
+    taa_fpu_vec4* fd = (taa_fpu_vec4*) pd;
+    taa_fpu_vec4* fe = (taa_fpu_vec4*) pe;
+    taa_vpu_vec4* va = (taa_vpu_vec4*) pa;
+    taa_vpu_vec4* vb = (taa_vpu_vec4*) pb;
+    taa_vpu_vec4* vc = (taa_vpu_vec4*) pc;
+    taa_vpu_vec4* vd = (taa_vpu_vec4*) pd;
+    taa_vpu_vec4* vf = (taa_vpu_vec4*) pf;
+    rand_vec4(pa);
+    rand_vec4(pb);
+    rand_vec4(pc);
+    rand_vec4(pd);
+    // fpu macros
+    taa_fpu_shuf_aw_bx_cw_dx(*fa, *fb, *fc, *fd, *fe);
+    // vpu macros
+    taa_vpu_shuf_aw_bx_cw_dx(*va, *vb, *vc, *vd, *vf);
+    assert(!cmp_vec4(pe, pf, TEST_EPSILON));
+    assert(!cmp_float(pf->x, pa->w, TEST_EPSILON));
+    assert(!cmp_float(pf->y, pb->x, TEST_EPSILON));
+    assert(!cmp_float(pf->z, pc->w, TEST_EPSILON));
+    assert(!cmp_float(pf->w, pd->x, TEST_EPSILON));
+}
+
+//****************************************************************************
 int main(int argc, char* argv[])
 {
     printf("testing taa_mat33_transpose...");
@@ -380,9 +409,13 @@ int main(int argc, char* argv[])
     fflush(stdout);  
     test_vec4_normalize();
     printf("pass\n");
-    printf("testing taa_vec4_shuf_aw_bx_cw_dx...");
+    printf("testing taa_shuf_ax_ay_az_bx...");
     fflush(stdout);  
-    test_vec4_shuf_aw_bx_cw_dx();
+    test_shuf_ax_ay_az_bx();
+    printf("pass\n");
+    printf("testing taa_shuf_aw_bx_cw_dx...");
+    fflush(stdout);  
+    test_shuf_aw_bx_cw_dx();
     printf("pass\n");
 #if defined(_DEBUG) && defined(_MSC_FULL_VER)
     _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);

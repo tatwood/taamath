@@ -6,8 +6,8 @@
  * @date      2011
  * @copyright unlicense / public domain
  ****************************************************************************/
-#ifndef taa_NEON_GCC_H_
-#define taa_NEON_GCC_H_
+#ifndef taa_VPU_NEON_H_
+#define taa_VPU_NEON_H_
 
 #include <arm_neon.h>
 
@@ -109,4 +109,4 @@
 #define taa_vpu_xor_target(a_, b_, out_) \
     ((out_) = (float32x4_t) vxorq_u32 ((uint32x4_t) (a_), (uint32x4_t) (b_)))
 
-#endif // taa_NEON_GCC_H_
+#endif // taa_VPU_NEON_H_

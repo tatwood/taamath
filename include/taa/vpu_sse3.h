@@ -6,8 +6,8 @@
  * @date      2011
  * @copyright unlicense / public domain
  ****************************************************************************/
-#ifndef taa_SSE3_H_
-#define taa_SSE3_H_
+#ifndef taa_VPU_SSE3_H_
+#define taa_VPU_SSE3_H_
 
 #if defined(__GNUC__)
 
@@ -246,4 +246,4 @@ static const taa_DECLSPEC_ALIGN(16) float taa_ATTRIB_ALIGN(16) s_taa_sse_tiny[4]
 #define taa_vpu_xor_target(a_, b_, out_) \
     ((out_) = _mm_xor_ps(a_, b_))
 
-#endif // taa_SSE3_H_
+#endif // taa_VPU_SSE3_H_
